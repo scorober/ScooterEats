@@ -41,7 +41,6 @@ User opens app and is already logged in
 
 ### After logging in ###
 ```
-*User searches for food by type/genre. 
 *User finds a restaurant
 *User is presented a Menu
 *User pokes the items they wish to add to their cart
