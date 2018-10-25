@@ -9,31 +9,32 @@ package com.scteats.scootereats.model;
  */
 public class User {
     private long userId;
-    private String username;
+    private String email;
     private String password;
     private AccountType accountType;
 
-    public User(long userId, String username, String password, AccountType accountType) {
+    public User(final long userId,final String username,final String password,
+                final  AccountType accountType, final String email) {
         this.userId = userId;
-        this.username = username;
+        this.email = username;
         this.password = password;
         this.accountType = accountType;
 
     }
 
+    /**
+     * Empty constructor with
+     */
     public User(){
         this.userId = 0;
-        this.username = null;
-        this.password = null;
-        this.accountType = null;
     }
 
     public long getUserId() {
         return userId;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
     public String getPassword() {
@@ -48,8 +49,8 @@ public class User {
         this.userId = theId;
     }
 
-    public void setUsername(final String theName) {
-        this.username = theName;
+    public void setEmail(final String theEmail) {
+        this.email = theEmail;
     }
 
     public void setPassword(final String thePassword) {
@@ -68,4 +69,6 @@ public class User {
             }
         }
     }
+
+
 }

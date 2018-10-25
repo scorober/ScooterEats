@@ -48,6 +48,8 @@ import static android.Manifest.permission.READ_CONTACTS;
 
 //https://stackoverflow.com/questions/22209046/example-and-explanation-android-studio-login-activity-template-generated-acti
 
+//TODO implemenents deprecated interface
+
 
 /**
  * A login screen that offers login via email/password.
@@ -209,6 +211,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private boolean isPasswordValid(String password) {
+
         //TODO: Replace this with your own logic
         return password.length() > 4;
     }
