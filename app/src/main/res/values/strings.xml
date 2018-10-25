@@ -16,5 +16,6 @@
     <string name="confirm_registry">Email not found. You want to create a new user with that email and password?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="title_activity_cust_main">CustMainActivity</string>
 
 </resources>

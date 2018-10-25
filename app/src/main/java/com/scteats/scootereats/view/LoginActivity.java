@@ -43,12 +43,13 @@ import android.widget.Toast;
 import com.scteats.scootereats.database.DBTools;
 import com.scteats.scootereats.model.User;
 import com.scteats.scootereats.model.AccountType;
+import com.scteats.scootereats.presenter.CustMainPresenter;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
 //https://stackoverflow.com/questions/22209046/example-and-explanation-android-studio-login-activity-template-generated-acti
 
-//TODO implemenents deprecated interface
+//TODO implemenents deprecated interface, breaks MVP pattern
 
 
 /**
@@ -355,7 +356,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             if (success) {
                 if (myUser.getUserId() > 0) {
                     finish();
-                    Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
+                    //TODO find what screen to take user too
+                    Intent myIntent = new Intent(LoginActivity.this, CustMainActivity.class);
                     LoginActivity.this.startActivity(myIntent);
                 } else {
                     DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
@@ -371,7 +373,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                         //TODO R.string.updatingReport value should be displayed as second makeTest argument?
                                         Toast myToast = Toast.makeText(mContext, "R.string.updatingReport --DEBUG", Toast.LENGTH_SHORT);
                                         myToast.show();
-                                        Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
+                                        Intent myIntent = new Intent(LoginActivity.this, CustMainActivity.class);
                                         LoginActivity.this.startActivity(myIntent);
                                     } finally {
                                         if (dbTools != null)
