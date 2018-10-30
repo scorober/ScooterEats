@@ -13,19 +13,19 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
 public class MenuTable {
 
     @PrimaryKey(autoGenerate = true)
-    private int mid;
+    private int menuID;
 
     private int restID;
 
 
     public MenuTable(int id, int restID) {
-        this.mid = id;
+        this.menuID = id;
         this.restID = restID;
     }
 
 
-    public int getMid() {
-        return mid;
+    public int getMenuID() {
+        return MenuID;
     }
 
     public int getRestID() {

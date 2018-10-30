@@ -24,10 +24,9 @@ public class CustMainPresenter {
 
         //TODO grab restaurants from Database
         for (int i = 0; i < 5; i++) {
-            Restaurant r = new Restaurant("Scooter Eatas");
+            Restaurant r = new Restaurant("Scooter Eats");
             stores.add(r);
         }
-
 
         view.updateRestaurantList(stores);
     }

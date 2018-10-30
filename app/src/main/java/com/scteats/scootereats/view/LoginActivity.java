@@ -42,8 +42,7 @@ import android.widget.Toast;
 
 import com.scteats.scootereats.database.DBTools;
 import com.scteats.scootereats.model.User;
-import com.scteats.scootereats.model.AccountType;
-import com.scteats.scootereats.presenter.CustMainPresenter;
+import com.scteats.scootereats.presenter.LoginPresenter;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -55,10 +54,12 @@ import static android.Manifest.permission.READ_CONTACTS;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor>, LoginPresenter.View {
 
 
     private User myUser;
+
+    private LoginPresenter presenter;
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -80,6 +81,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        //Create the presenter
+        presenter = new LoginPresenter(this);
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -206,15 +210,27 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
+
+
+    //TODO call presenter methods
+
+    /**
+     * Checks if valid email
+     * @param email
+     * @return True if valid email string
+     */
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
-        return email.contains("@");
+        return presenter.isValidEmail(email);
+
     }
 
+    /**
+     * Presenter determines if valid password string.
+     * @param password
+     * @return True if password is valid
+     */
     private boolean isPasswordValid(String password) {
-
-        //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return presenter.isValidPassword(password);
     }
 
     /**
@@ -296,6 +312,26 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailView.setAdapter(adapter);
     }
 
+    @Override
+    public String getEmail(String email) {
+        return email;
+    }
+
+    @Override
+    public String getPassword(String password) {
+        return password;
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
+    }
+
+    @Override
+    public Boolean verifyCredentials() {
+        return null;
+    }
+
 
     private interface ProfileQuery {
         String[] PROJECTION = {
@@ -325,8 +361,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         @Override
         protected Boolean doInBackground(Void... params) {
+
+            //Presenter inherited method?? connect to new db
+
+//            verifyCredentials();
+
+
             DBTools dbTools = null;
             try {
+
+                //TODO this work needs to be moved to presenter
                 dbTools = new DBTools(mContext);
                 myUser = dbTools.getUser(mEmail);
 

@@ -4,6 +4,11 @@ package com.scteats.scootereats.database.entities;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+
+/**
+ * User relation has no foreign key. Represents a User
+ * TODO: Where to store address.
+ */
 @Entity
 public class UserTable {
     @PrimaryKey(autoGenerate = true)
