@@ -19,7 +19,9 @@ import com.scteats.scootereats.database.interfaces.UserDao;
 
 
 //TODO add orders table
-@Database(entities = {ItemTable.class, RestTable.class, MenuTable.class, UserTable.class}, version = 1)
+@Database(entities = {ItemTable.class, RestTable.class, MenuTable.class, UserTable.class},
+        version = 1,
+        exportSchema = false)
 public abstract class EatsDatabase extends RoomDatabase {
 
     private static final String DB_NAME = "scooterEatsDatabase.db";

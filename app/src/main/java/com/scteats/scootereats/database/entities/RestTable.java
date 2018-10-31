@@ -18,15 +18,15 @@ public class RestTable {
 
     private String genre;
 
-    private String addres;
+    private String address;
 
     private int priceLvl;
 
-    public RestTable(int id, String name, String genre, String addres, int priceLvl) {
-        this.restID = id;
+    public RestTable(int restID, String name, String genre, String address, int priceLvl) {
+        this.restID = restID;
         this.name = name;
         this.genre = genre;
-        this.addres = addres;
+        this.address = address;
         this.priceLvl = priceLvl;
     }
 
@@ -38,12 +38,12 @@ public class RestTable {
         this.priceLvl = priceLvl;
     }
 
-    public String getAddres() {
-        return addres;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAddres(String addres) {
-        this.addres = addres;
+    public void setAddress(String addres) {
+        this.address = addres;
     }
 
     public String getGenre() {
@@ -60,5 +60,13 @@ public class RestTable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getRestID() {
+        return restID;
+    }
+
+    public void setRestID(int restID) {
+        this.restID = restID;
     }
 }

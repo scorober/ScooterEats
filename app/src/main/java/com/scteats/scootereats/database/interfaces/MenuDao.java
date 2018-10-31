@@ -22,10 +22,10 @@ public interface MenuDao {
 
     @Delete
     void delete(ItemTable... items);
-
-    @Query("SELECT * FROM MenuTable")
-    ArrayList<MenuTable> getAllRepos();
-
-    @Query("SELECT * FROM MenuTable WHERE restID=:restID")
-    ArrayList<MenuTable> findRepositoriesForUser(final int restID);
+//
+//    @Query("SELECT * FROM MenuTable")
+//    ArrayList<MenuTable> getAllRepos();
+//
+//    @Query("SELECT * FROM MenuTable WHERE restID=:restID")
+//    ArrayList<MenuTable> findRepositoriesForUser(final int restID);
 }

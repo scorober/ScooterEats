@@ -9,7 +9,7 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
 
 @Entity(foreignKeys = @ForeignKey(entity = MenuTable.class,
         parentColumns = "menuID",
-        childColumns = "menUIDf",
+        childColumns = "menuID",
         onDelete = CASCADE))
 public class ItemTable {
 
@@ -56,4 +56,9 @@ public class ItemTable {
     public int getItemID() {
         return itemID;
     }
+
+    public void setItemID(int itemID) {
+        this.itemID = itemID;
+    }
+
 }

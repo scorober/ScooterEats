@@ -61,4 +61,12 @@ public class UserTable {
     public void setAccountType(String accountType) {
         this.accountType = accountType;
     }
+
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
 }

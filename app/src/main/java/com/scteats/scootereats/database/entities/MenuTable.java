@@ -18,8 +18,8 @@ public class MenuTable {
     private int restID;
 
 
-    public MenuTable(int id, int restID) {
-        this.menuID = id;
+    public MenuTable(int menuID, int restID) {
+        this.menuID = menuID;
         this.restID = restID;
     }
 
@@ -30,6 +30,10 @@ public class MenuTable {
 
     public int getRestID() {
         return restID;
+    }
+
+    public void setMenuID(int menuID) {
+        this.menuID = menuID;
     }
 
     public void setRestID(int restID) {
