@@ -32,7 +32,7 @@ public class DBTools extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
         /*
-        Database structure:
+        EatsDatabase structure:
 
         TABLE:logins
         userID  |  email |  password  |  accountType

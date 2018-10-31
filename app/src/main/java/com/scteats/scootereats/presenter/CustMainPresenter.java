@@ -22,7 +22,7 @@ public class CustMainPresenter {
 
         ArrayList<Restaurant> stores = new ArrayList<>();
 
-        //TODO grab restaurants from Database
+        //TODO grab restaurants from EatsDatabase
         for (int i = 0; i < 5; i++) {
             Restaurant r = new Restaurant("Scooter Eats");
             stores.add(r);

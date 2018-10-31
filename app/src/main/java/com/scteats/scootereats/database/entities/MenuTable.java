@@ -7,8 +7,8 @@ import android.arch.persistence.room.PrimaryKey;
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
 @Entity(foreignKeys = @ForeignKey(entity = RestTable.class,
-                                    parentColumns = "rid",
-                                    childColumns = "mid",
+                                    parentColumns = "restID",
+                                    childColumns = "restID",
                                     onDelete = CASCADE))
 public class MenuTable {
 
@@ -25,7 +25,7 @@ public class MenuTable {
 
 
     public int getMenuID() {
-        return MenuID;
+        return menuID;
     }
 
     public int getRestID() {

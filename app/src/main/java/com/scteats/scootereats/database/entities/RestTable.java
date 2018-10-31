@@ -6,14 +6,13 @@ import android.arch.persistence.room.PrimaryKey;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
-@Entity(foreignKeys = @ForeignKey(entity = RestTable.class,
-                                    parentColumns = "rid",
-                                    childColumns = "mid",
-                                    onDelete = CASCADE))
+
+
+@Entity
 public class RestTable {
 
     @PrimaryKey(autoGenerate = true)
-    private int rid;
+    private int restID;
 
     private String name;
 
@@ -24,7 +23,7 @@ public class RestTable {
     private int priceLvl;
 
     public RestTable(int id, String name, String genre, String addres, int priceLvl) {
-        this.rid = id;
+        this.restID = id;
         this.name = name;
         this.genre = genre;
         this.addres = addres;

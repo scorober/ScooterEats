@@ -2,40 +2,51 @@
 
 package com.scteats.scootereats.database;
 
-import android.arch.persistence.db.SupportSQLiteOpenHelper;
-import android.arch.persistence.room.DatabaseConfiguration;
-import android.arch.persistence.room.InvalidationTracker;
+import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
-import android.support.annotation.NonNull;
 
 
 import com.scteats.scootereats.database.entities.ItemTable;
 import com.scteats.scootereats.database.entities.MenuTable;
 import com.scteats.scootereats.database.entities.RestTable;
 import com.scteats.scootereats.database.entities.UserTable;
+import com.scteats.scootereats.database.interfaces.ItemDao;
+import com.scteats.scootereats.database.interfaces.MenuDao;
+import com.scteats.scootereats.database.interfaces.RestDao;
+import com.scteats.scootereats.database.interfaces.UserDao;
 
+
+//TODO add orders table
 @Database(entities = {ItemTable.class, RestTable.class, MenuTable.class, UserTable.class}, version = 1)
-public abstract class Database extends RoomDatabase {
+public abstract class EatsDatabase extends RoomDatabase {
 
     private static final String DB_NAME = "scooterEatsDatabase.db";
 
-    private static volatile Database instance;
+    private static volatile EatsDatabase instance;
 
 
-    static synchronized Database getInstance(Context context) {
+    static synchronized EatsDatabase getInstance(Context context) {
         if (instance == null) {
             instance = create(context);
         }
         return instance;
     }
 
-    private static Database create(final Context context) {
-        return Room.databaseBuilder(context, Database.class, DB_NAME).build();
+    private static EatsDatabase create(final Context context) {
+        return Room.databaseBuilder(context, EatsDatabase.class, DB_NAME).build();
     }
 
-    public abstract
+    abstract public ItemDao itemDao();
+
+    abstract public MenuDao menuDao();
+
+    abstract public RestDao restDao();
+
+    abstract public UserDao userDao();
+
+//    public abstract
 
 //    @NonNull
 //    @Override
