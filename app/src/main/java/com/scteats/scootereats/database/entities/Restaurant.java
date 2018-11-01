@@ -9,7 +9,7 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
 
 
 @Entity
-public class RestTable {
+public class Restaurant {
 
     @PrimaryKey(autoGenerate = true)
     private int restID;
@@ -22,7 +22,7 @@ public class RestTable {
 
     private int priceLvl;
 
-    public RestTable(int restID, String name, String genre, String address, int priceLvl) {
+    public Restaurant(int restID, String name, String genre, String address, int priceLvl) {
         this.restID = restID;
         this.name = name;
         this.genre = genre;

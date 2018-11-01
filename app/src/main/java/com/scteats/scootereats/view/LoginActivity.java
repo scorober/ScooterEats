@@ -40,8 +40,6 @@ import java.util.List;
 
 import android.widget.Toast;
 
-import com.scteats.scootereats.database.DBTools;
-import com.scteats.scootereats.model.User;
 import com.scteats.scootereats.presenter.LoginPresenter;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -57,8 +55,9 @@ import static android.Manifest.permission.READ_CONTACTS;
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor>, LoginPresenter.View {
 
 
-    private User myUser;
-
+    /**
+     * Presenter linking LoginActivity to model
+     */
     private LoginPresenter presenter;
 
     /**
@@ -364,32 +363,30 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             //Presenter inherited method?? connect to new db
 
-//            verifyCredentials();
+            presenter.verifyLogin(mEmail, mPassword);
+            verifyCredentials();
 
-
-            DBTools dbTools = null;
-            try {
-
-                //TODO this work needs to be moved to presenter
-                dbTools = new DBTools(mContext);
-                myUser = dbTools.getUser(mEmail);
-
-                if (myUser.getUserId() > 0) {
-                    // Account exists, check password.
-                    if (myUser.getPassword().equals(mPassword))
-                        return true;
-                    else
-                        return false;
-                } else {
-                    myUser.setPassword(mPassword);
-                    return true;
-                }
-            } finally {
-                if (dbTools != null)
-                    dbTools.close();
-            }
-            // return false if no previous checks are true
-//            return false; //TODO  Unreachable return statement needed?
+//            try {
+//
+//                //TODO this work needs to be moved to presenter
+//                myUser = dbTools.getUser(mEmail);
+//
+//                if (myUser.getUserId() > 0) {
+//                    // Account exists, check password.
+//                    if (myUser.getPassword().equals(mPassword))
+//                        return true;
+//                    else
+//                        return false;
+//                } else {
+//                    myUser.setPassword(mPassword);
+//                    return true;
+//                }
+//            } finally {
+//                if (dbTools != null)
+//                    dbTools.close();
+//            }
+//            // return false if no previous checks are true
+////            return false; //TODO  Unreachable return statement needed?
         }
 
         @Override

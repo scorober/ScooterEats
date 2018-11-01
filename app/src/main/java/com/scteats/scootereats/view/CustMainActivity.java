@@ -15,8 +15,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.SimpleCursorAdapter;
 
-import com.scteats.scootereats.R;
-import com.scteats.scootereats.model.store.Restaurant;
+import com.scteats.scootereats.database.entities.Restaurant;
 import com.scteats.scootereats.presenter.CustMainPresenter;
 
 import java.util.ArrayList;

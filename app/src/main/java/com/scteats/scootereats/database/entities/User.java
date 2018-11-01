@@ -7,10 +7,11 @@ import android.arch.persistence.room.PrimaryKey;
 
 /**
  * User relation has no foreign key. Represents a User
- * TODO: Where to store address.
+ * TODO: Where to store address/ How to do accountType
  */
 @Entity
-public class UserTable {
+public class User {
+
     @PrimaryKey(autoGenerate = true)
     private int uid;
 
@@ -20,10 +21,12 @@ public class UserTable {
 
     private String password;
 
-    //Based off enum type
-    private String accountType;
 
-    public UserTable(int uid, String email, String name, String password) {
+
+    //Based off enum type
+    private char accountType;
+
+    public User(int uid, String email, String name, String password, char accountType) {
         this.uid = uid;
         this.email = email;
         this.name = name;
@@ -54,11 +57,11 @@ public class UserTable {
         this.password = password;
     }
 
-    public String getAccountType() {
+    public char getAccountType() {
         return accountType;
     }
 
-    public void setAccountType(String accountType) {
+    public void setAccountType(char accountType) {
         this.accountType = accountType;
     }
 

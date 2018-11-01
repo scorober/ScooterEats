@@ -3,15 +3,15 @@ package com.scteats.scootereats.database.entities;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
-import android.view.MenuItem;
+
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
-@Entity(foreignKeys = @ForeignKey(entity = MenuTable.class,
+@Entity(foreignKeys = @ForeignKey(entity = MenuItem.class,
         parentColumns = "menuID",
         childColumns = "menuID",
         onDelete = CASCADE))
-public class ItemTable {
+public class MenuItem {
 
     @PrimaryKey(autoGenerate = true)
     private int itemID;
@@ -22,7 +22,7 @@ public class ItemTable {
 
     private double price;
 
-    public ItemTable(int itemID, int menuID, String itemTitle, double price) {
+    public MenuItem(int itemID, int menuID, String itemTitle, double price) {
         this.itemID = itemID;
         this.menuID = menuID;
         this.itemTitle = itemTitle;

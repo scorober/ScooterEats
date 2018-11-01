@@ -2,7 +2,8 @@ package com.scteats.scootereats.presenter;
 
 import android.view.View;
 
-import com.scteats.scootereats.model.store.Restaurant;
+
+import com.scteats.scootereats.database.entities.Restaurant;
 
 import java.util.ArrayList;
 
@@ -24,8 +25,8 @@ public class CustMainPresenter {
 
         //TODO grab restaurants from EatsDatabase
         for (int i = 0; i < 5; i++) {
-            Restaurant r = new Restaurant("Scooter Eats");
-            stores.add(r);
+//            Restaurant r = new Restaurant("Scooter Eats");
+//            stores.add(r);
         }
 
         view.updateRestaurantList(stores);

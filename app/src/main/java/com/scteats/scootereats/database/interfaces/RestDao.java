@@ -3,29 +3,24 @@ package com.scteats.scootereats.database.interfaces;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
-import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.scteats.scootereats.database.entities.ItemTable;
-import com.scteats.scootereats.database.entities.MenuTable;
-import com.scteats.scootereats.database.entities.RestTable;
-
-import java.util.ArrayList;
+import com.scteats.scootereats.database.entities.MenuItem;
 
 @Dao
 public interface RestDao {
     @Insert
-    void insert(ItemTable item);
+    void insert(MenuItem item);
 
     @Update
-    void update(ItemTable... items);
+    void update(MenuItem... items);
 
     @Delete
-    void delete(ItemTable... items);
+    void delete(MenuItem... items);
 
-//    @Query("SELECT * FROM RestTable")
-//    ArrayList<RestTable> getAllRepos();
+//    @Query("SELECT * FROM Restaurant")
+//    ArrayList<Restaurant> getAllRepos();
 
-//    @Query("SELECT * FROM MenuTable WHERE restID=:restID")
-//    ArrayList<RestTable> findRepositoriesForUser(final int restID);
+//    @Query("SELECT * FROM Menu WHERE restID=:restID")
+//    ArrayList<Restaurant> findRepositoriesForUser(final int restID);
 }

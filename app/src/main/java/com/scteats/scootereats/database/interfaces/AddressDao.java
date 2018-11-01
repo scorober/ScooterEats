@@ -1,31 +1,28 @@
 package com.scteats.scootereats.database.interfaces;
 
-
-import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.scteats.scootereats.database.entities.MenuItem;
+import com.scteats.scootereats.database.entities.Address;
 
 import java.util.List;
 
-@Dao
-public interface ItemDao {
+public interface AddressDao {
 
     @Insert
-    void insert(MenuItem item);
+    void insert(Address address);
 
     @Update
-    void update(MenuItem... items);
+    void update(Address... addresses);
 
     @Delete
-    void delete(MenuItem... items);
+    void delete(Address... addresses);
 
     /*Queries... */
 
-    @Query("SELECT * FROM MenuItem")
-    List<MenuItem> getAllItems();
+    @Query("SELECT * FROM Address")
+    List<Address> getAllAddresses();
 
 }

@@ -1,16 +1,11 @@
 package com.scteats.scootereats.presenter;
 
 import android.content.Context;
-import android.view.View;
-
-import com.scteats.scootereats.database.DBTools;
-import com.scteats.scootereats.model.User;
 
 public class LoginPresenter {
 
-    private User user;
+
     private View view;
-    private DBTools dbTools;
 
     public LoginPresenter(View view) {
         this.view = view;
@@ -35,7 +30,7 @@ public class LoginPresenter {
 
         Context getContext();
 
-        Boolean verifyCredentials();
+        Boolean verifyCredentials(String email, String password);
 
     }
 

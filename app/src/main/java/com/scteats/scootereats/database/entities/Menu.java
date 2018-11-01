@@ -6,11 +6,11 @@ import android.arch.persistence.room.PrimaryKey;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
-@Entity(foreignKeys = @ForeignKey(entity = RestTable.class,
+@Entity(foreignKeys = @ForeignKey(entity = Restaurant.class,
                                     parentColumns = "restID",
                                     childColumns = "restID",
                                     onDelete = CASCADE))
-public class MenuTable {
+public class Menu {
 
     @PrimaryKey(autoGenerate = true)
     private int menuID;
@@ -18,7 +18,7 @@ public class MenuTable {
     private int restID;
 
 
-    public MenuTable(int menuID, int restID) {
+    public Menu(int menuID, int restID) {
         this.menuID = menuID;
         this.restID = restID;
     }
