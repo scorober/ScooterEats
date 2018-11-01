@@ -52,7 +52,7 @@ public abstract class EatsDatabase extends RoomDatabase {
      * @param context Context querying the database
      * @return The database
      */
-    static synchronized EatsDatabase getInstance(Context context) {
+    public static EatsDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (EatsDatabase.class) {
                 if (INSTANCE == null) {

@@ -1,7 +1,9 @@
 package com.scteats.scootereats.database.entities;
 
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 
@@ -9,10 +11,11 @@ import android.arch.persistence.room.PrimaryKey;
  * User relation has no foreign key. Represents a User
  * TODO: Where to store address/ How to do accountType
  */
-@Entity
+@Entity(tableName = "users")
 public class User {
 
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "user_id")
     private int uid;
 
     private String email;
@@ -32,6 +35,13 @@ public class User {
         this.name = name;
         this.password = password;
     }
+
+//    @Ignore //Use only for creating sub Users... which shouldn't happen....
+//    public User(int uid, String email, String password) {
+//        this.uid = uid;
+//        this.email = email;
+//        this.password = password;
+//    }
 
     public String getEmail() {
         return email;

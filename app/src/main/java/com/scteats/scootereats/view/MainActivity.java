@@ -5,6 +5,11 @@ import android.os.Bundle;
 
 import com.scteats.scootereats.R;
 
+//TODO implement this class.
+
+/**
+ * Registration screen for the user. User needs to pick account type, choose name, and set address.
+ */
 public class MainActivity extends AppCompatActivity {
 
     @Override
