@@ -32,7 +32,7 @@ public class LoginPresenter {
      */
     public LoginPresenter(View view) {
         this.view = view;
-        repo = new UserRepository(view.getApplication());
+        repo = new UserRepository(view.getContext());
         allUsers = repo.getAllUsers();
 
     }
@@ -63,11 +63,9 @@ public class LoginPresenter {
 
         Boolean verifyLoginInput();
 
-        Boolean verifyEmailInput();
+        Boolean verifyEmailInput(String email);
 
         Context getContext();
-
-        Application getApplication();
 
         void emailNotFound();
 

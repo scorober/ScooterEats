@@ -54,11 +54,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
     /**
-     * Presenter linking LoginActivity to model
-     */
-    private LoginPresenter presenter;
-
-    /**
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
@@ -314,6 +309,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         private final String mEmail;
         private final String mPassword;
         private final Context mContext;
+        private LoginPresenter presenter;
 
 
 
@@ -321,13 +317,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mEmail = email;
             mPassword = password;
             mContext = context;
+
+
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
-
+            presenter = new LoginPresenter(this);
             //Verify if email exists in Users table
-            if (verifyEmailInput()) {
+            if (verifyEmailInput(mEmail)) {
                 return true;
             } else {
                 return false;
@@ -347,10 +345,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     finish();
                     Intent myIntent = new Intent(LoginActivity.this, CustMainActivity.class);
                     LoginActivity.this.startActivity(myIntent);
+                } else {
+                    mPasswordView.setError(getString(R.string.error_incorrect_password));
+                    mPasswordView.requestFocus();
                 }
             } else { //Wrong password
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
+                emailNotFound();
             }
         }
 
@@ -367,19 +367,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
 
         @Override
-        public Boolean verifyEmailInput() {
+        public Boolean verifyEmailInput(String email) {
             //return presenter method
-            return presenter.verifyEmail(mEmail);
+            return presenter.verifyEmail(email);
         }
 
         @Override
         public Context getContext() {
             return mContext;
-        }
-
-        @Override
-        public Application getApplication() {
-            return this.getApplication();
         }
 
 
@@ -405,8 +400,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     }
                 }
             };
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(this.mContext);
+            //TODO get context or application?
+            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
             builder.setMessage(R.string.confirm_registry).setPositiveButton(R.string.yes, dialogClickListener)
                     .setNegativeButton(R.string.no, dialogClickListener).show();
         }

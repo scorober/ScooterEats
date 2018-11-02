@@ -16,8 +16,8 @@ public class UserRepository {
     private UserDao userDao;
     private List<User> allUsers;
 
-    public UserRepository(Application application) {
-        EatsDatabase db = EatsDatabase.getDatabase(application);
+    public UserRepository(Context context) {
+        EatsDatabase db = EatsDatabase.getDatabase(context);
         userDao = db.userDao();
         allUsers = userDao.getAllUsers();
     }

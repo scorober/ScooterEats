@@ -24,9 +24,6 @@ public class User {
 
     private String password;
 
-
-
-    //Based off enum type
     private char accountType;
 
     public User(int uid, String email, String name, String password, char accountType) {
@@ -34,6 +31,7 @@ public class User {
         this.email = email;
         this.name = name;
         this.password = password;
+        this.accountType = accountType;
     }
 
 //    @Ignore //Use only for creating sub Users... which shouldn't happen....
