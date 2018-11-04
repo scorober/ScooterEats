@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
+import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -40,24 +41,22 @@ import java.util.List;
 
 import android.widget.Toast;
 
-import com.scteats.scootereats.database.DBTools;
-import com.scteats.scootereats.model.User;
-import com.scteats.scootereats.model.AccountType;
+import com.scteats.scootereats.presenter.LoginPresenter;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
-//https://stackoverflow.com/questions/22209046/example-and-explanation-android-studio-login-activity-template-generated-acti
+//TODO implements deprecated interface. Do I care?? Do you care??
 
-//TODO implemenents deprecated interface
+//TODO Should split register/login button into two buttons,
+// or make it so tapping button doesn't require input in text fields.
 
 
 /**
  * A login screen that offers login via email/password.
+ * @version Sprint 1
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
-
-    private User myUser;
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -79,6 +78,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -105,6 +106,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+
     }
 
     private void populateAutoComplete() {
@@ -205,15 +208,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
+    //TODO move these methods to presenter... and maybe change them from autogen code...
+    //Basic generated validity tests
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
         return email.contains("@");
     }
 
     private boolean isPasswordValid(String password) {
-
-        //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return password.length() >= 4;
     }
 
     /**
@@ -295,7 +297,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailView.setAdapter(adapter);
     }
 
-
     private interface ProfileQuery {
         String[] PROJECTION = {
                 ContactsContract.CommonDataKinds.Email.ADDRESS,
@@ -310,90 +311,53 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> implements LoginPresenter.View {
 
         private final String mEmail;
         private final String mPassword;
         private final Context mContext;
+        private LoginPresenter presenter;
+
+
 
         UserLoginTask(String email, String password, Context context) {
             mEmail = email;
             mPassword = password;
             mContext = context;
+
+
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            DBTools dbTools = null;
-            try {
-                dbTools = new DBTools(mContext);
-                myUser = dbTools.getUser(mEmail);
-
-                if (myUser.getUserId() > 0) {
-                    // Account exists, check password.
-                    if (myUser.getPassword().equals(mPassword))
-                        return true;
-                    else
-                        return false;
-                } else {
-                    myUser.setPassword(mPassword);
-                    return true;
-                }
-            } finally {
-                if (dbTools != null)
-                    dbTools.close();
+            presenter = new LoginPresenter(this, mContext);
+            //Verify if email exists in Users table
+            if (verifyEmailInput(mEmail)) {
+                return true;
+            } else {
+                return false;
             }
-            // return false if no previous checks are true
-//            return false; //TODO  Unreachable return statement needed?
         }
+
 
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             showProgress(false);
 
+            //Credentials verified
             if (success) {
-                if (myUser.getUserId() > 0) {
+                //Verify the correct password and launch next activity
+                if (verifyLoginInput()) {
                     finish();
-                    Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent myIntent = new Intent(LoginActivity.this, CustMainActivity.class);
                     LoginActivity.this.startActivity(myIntent);
                 } else {
-                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            switch (which) {
-                                case DialogInterface.BUTTON_POSITIVE:
-                                    DBTools dbTools = null;
-                                    try {
-                                        finish();
-                                        dbTools = new DBTools(mContext);
-                                        myUser = dbTools.insertUser(myUser);
-                                        //TODO R.string.updatingReport value should be displayed as second makeTest argument?
-                                        Toast myToast = Toast.makeText(mContext, "R.string.updatingReport --DEBUG", Toast.LENGTH_SHORT);
-                                        myToast.show();
-                                        Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
-                                        LoginActivity.this.startActivity(myIntent);
-                                    } finally {
-                                        if (dbTools != null)
-                                            dbTools.close();
-                                    }
-                                    break;
-
-                                case DialogInterface.BUTTON_NEGATIVE:
-                                    mPasswordView.setError(getString(R.string.error_incorrect_password));
-                                    mPasswordView.requestFocus();
-                                    break;
-                            }
-                        }
-                    };
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this.mContext);
-                    builder.setMessage(R.string.confirm_registry).setPositiveButton(R.string.yes, dialogClickListener)
-                            .setNegativeButton(R.string.no, dialogClickListener).show();
+                    mPasswordView.setError(getString(R.string.error_incorrect_password));
+                    mPasswordView.requestFocus();
                 }
             } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
+                emailNotFound();
             }
         }
 
@@ -401,6 +365,46 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected void onCancelled() {
             mAuthTask = null;
             showProgress(false);
+        }
+
+        //LoginPresenter implemented methods
+        @Override
+        public Boolean verifyLoginInput() {
+            return presenter.verifyLogin(mPassword);
+        }
+
+        @Override
+        public Boolean verifyEmailInput(String email) {
+            //return presenter method
+            return presenter.verifyEmail(email);
+        }
+
+
+        @Override
+        /**
+         * User is not found, opens a Dialog which prompts user to register.
+         */
+        public void emailNotFound() {
+            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which) {
+                        case DialogInterface.BUTTON_POSITIVE:
+
+                            //Move to main activity to register user.
+                            Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
+                            LoginActivity.this.startActivity(myIntent);
+
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            mPasswordView.setError(getString(R.string.error_incorrect_password));
+                            mPasswordView.requestFocus();
+                            break;
+                    }
+                }
+            };
+            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+            builder.setMessage(R.string.confirm_registry).setPositiveButton(R.string.yes, dialogClickListener)
+                    .setNegativeButton(R.string.no, dialogClickListener).show();
         }
     }
 }
