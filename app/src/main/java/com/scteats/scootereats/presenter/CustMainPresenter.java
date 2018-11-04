@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 /**
  * Presenter that links model classes to CustMainActivity
+ * @version Sprint 1
  */
 public class CustMainPresenter {
 
@@ -24,9 +25,10 @@ public class CustMainPresenter {
         ArrayList<Restaurant> stores = new ArrayList<>();
 
         //TODO grab restaurants from EatsDatabase
-        for (int i = 0; i < 5; i++) {
-//            Restaurant r = new Restaurant("Scooter Eats");
-//            stores.add(r);
+        for (int i = 0; i < 100; i++) {
+            Restaurant r = new Restaurant(0,"Scooter Eats",
+                    "scooters", "ur mom's house", 3);
+            stores.add(r);
         }
 
         view.updateRestaurantList(stores);

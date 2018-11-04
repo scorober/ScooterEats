@@ -9,7 +9,7 @@ import android.arch.persistence.room.PrimaryKey;
 
 /**
  * User relation has no foreign key. Represents a User
- * TODO: Where to store address/ How to do accountType
+ * Only entity accessed by the app so far.
  */
 @Entity(tableName = "users")
 public class User {
@@ -26,20 +26,13 @@ public class User {
 
     private char accountType;
 
-    public User(int uid, String email, String name, String password, char accountType) {
+    public User(int uid, String email,  String password, String name, char accountType) {
         this.uid = uid;
         this.email = email;
         this.name = name;
         this.password = password;
         this.accountType = accountType;
     }
-
-//    @Ignore //Use only for creating sub Users... which shouldn't happen....
-//    public User(int uid, String email, String password) {
-//        this.uid = uid;
-//        this.email = email;
-//        this.password = password;
-//    }
 
     public String getEmail() {
         return email;

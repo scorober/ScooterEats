@@ -69,4 +69,9 @@ public class Restaurant {
     public void setRestID(int restID) {
         this.restID = restID;
     }
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
 }

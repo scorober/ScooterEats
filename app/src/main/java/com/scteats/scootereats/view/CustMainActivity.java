@@ -20,10 +20,11 @@ import com.scteats.scootereats.presenter.CustMainPresenter;
 
 import java.util.ArrayList;
 
-//https://developer.android.com/guide/topics/ui/layout/listview#java
-//TODO switch to card based layout
 
-
+/**
+ * Displays a list of 100 strings of Scooter Eats, what else do you need?
+ * @version Sprint 1
+ */
 public class CustMainActivity extends ListActivity implements CustMainPresenter.View, LoaderManager.LoaderCallbacks<Cursor> {
 
     //Adapter used to display the lists data.
@@ -35,6 +36,7 @@ public class CustMainActivity extends ListActivity implements CustMainPresenter.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         //Pass reference of activity to presenter
         presenter = new CustMainPresenter(this);

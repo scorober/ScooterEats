@@ -45,10 +45,15 @@ import com.scteats.scootereats.presenter.LoginPresenter;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
-//TODO implements deprecated interface
+//TODO implements deprecated interface. Do I care?? Do you care??
+
+//TODO Should split register/login button into two buttons,
+// or make it so tapping button doesn't require input in text fields.
+
 
 /**
  * A login screen that offers login via email/password.
+ * @version Sprint 1
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
@@ -101,6 +106,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+
     }
 
     private void populateAutoComplete() {
@@ -201,7 +208,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
-    //TODO move these methods to presenter
+    //TODO move these methods to presenter... and maybe change them from autogen code...
     //Basic generated validity tests
     private boolean isEmailValid(String email) {
         return email.contains("@");
@@ -323,7 +330,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            presenter = new LoginPresenter(this);
+            presenter = new LoginPresenter(this, mContext);
             //Verify if email exists in Users table
             if (verifyEmailInput(mEmail)) {
                 return true;
@@ -349,7 +356,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     mPasswordView.setError(getString(R.string.error_incorrect_password));
                     mPasswordView.requestFocus();
                 }
-            } else { //Wrong password
+            } else {
                 emailNotFound();
             }
         }
@@ -370,11 +377,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         public Boolean verifyEmailInput(String email) {
             //return presenter method
             return presenter.verifyEmail(email);
-        }
-
-        @Override
-        public Context getContext() {
-            return mContext;
         }
 
 
@@ -400,7 +402,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     }
                 }
             };
-            //TODO get context or application?
             AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
             builder.setMessage(R.string.confirm_registry).setPositiveButton(R.string.yes, dialogClickListener)
                     .setNegativeButton(R.string.no, dialogClickListener).show();

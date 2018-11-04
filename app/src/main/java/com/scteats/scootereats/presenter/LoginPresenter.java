@@ -9,6 +9,11 @@ import com.scteats.scootereats.repos.UserRepository;
 
 import java.util.List;
 
+
+/**
+ * Presenter linking LoginActivity with logic, output of this logic only launches a new activity
+ * so view is never changed by the presenter.
+ */
 public class LoginPresenter {
 
 
@@ -28,15 +33,21 @@ public class LoginPresenter {
 
     /**
      * Pass the view of LoginActivity to this constructor
+     * Users table is queried and generates list of users here.
      * @param view
      */
-    public LoginPresenter(View view) {
-        this.view = view;
-        repo = new UserRepository(view.getContext());
+    public LoginPresenter(View view, Context context) {
+        this.view = view; //Not really used
+        repo = new UserRepository(context);
         allUsers = repo.getAllUsers();
 
     }
-    //Need to determine where to verify email and what to return.
+
+    /**
+     * Verifies if email exists in list of all users grabbed from DB.
+     * @param email
+     * @return
+     */
     public boolean verifyEmail(String email) {
         for (User user : allUsers) {
             if (email.equals(user.getEmail())) {
@@ -64,8 +75,6 @@ public class LoginPresenter {
         Boolean verifyLoginInput();
 
         Boolean verifyEmailInput(String email);
-
-        Context getContext();
 
         void emailNotFound();
 

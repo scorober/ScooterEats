@@ -20,10 +20,16 @@ import com.scteats.scootereats.database.interfaces.RestDao;
 import com.scteats.scootereats.database.interfaces.UserDao;
 
 
-//TODO add orders table
+/*
+    So far only the users table has a repository and is able to be used by the app.
+    For the next sprint the restaurants table should be connected to the CustMainActivity.
+    Probably need an Orders and OrderItems table...
+    Foreign keys between databases haven't been tested at all.
+ */
 
 /**
  * Room Database class.
+ * @version Sprint 1
  */
 @Database(entities = {MenuItem.class, Restaurant.class, Menu.class, User.class, Address.class},
         version = 1,

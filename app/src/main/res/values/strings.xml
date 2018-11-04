@@ -29,5 +29,7 @@
         <item>Driver</item>
         <item>Restaurant Owner</item>
     </string-array>
+    <string name="title_activity_owner_main">OwnerMainActivity</string>
+    <string name="title_activity_driver_main">DriverMainActivity</string>
 
 </resources>

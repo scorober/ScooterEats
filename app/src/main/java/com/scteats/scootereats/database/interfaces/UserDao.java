@@ -11,6 +11,10 @@ import com.scteats.scootereats.database.entities.User;
 
 import java.util.List;
 
+
+/**
+ * Database Access Object
+ */
 @Dao
 public interface UserDao {
 
